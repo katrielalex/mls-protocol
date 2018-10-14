@@ -1,0 +1,1738 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>The Messaging Layer Security (MLS) Protocol</title>
+
+  
+<style type="text/css">/*<![CDATA[*/
+
+body {
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  color: #333;
+  font-size-adjust: 0.5;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
+}
+
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  font-size-adjust: 0.5;
+  font-weight: bold;
+  color: #333;
+  line-height: 100%;
+  margin: 1.2em 0 0.3em;
+}
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
+h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
+  color: #333;
+}
+
+table {
+  margin-left: 0em;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(2n+1) > td,
+tr:nth-child(2n+1) > th {
+  background-color: #f9f9f9;
+}
+td.reference {
+  max-width: 200px;
+  border-top: none;
+  padding-right: 1em;
+}
+.right {
+  text-align: right;
+}
+
+
+table.header, table#rfc\.headerblock {
+  width: 100%;
+}
+table.header td, table#rfc\.headerblock td {
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0;
+}
+.filename {
+  display: block;
+  color: rgb(119, 119, 119);
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+samp, tt, code, pre {
+  font: 15px Consolas, monospace;
+  font-size-adjust: none;
+}
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  padding: 5px;
+  margin: 5px;
+}
+.figure, caption {
+  font-style: italic;
+  margin: 0 1.5em;
+  text-align: left;
+}
+
+address {
+  margin: 16px 2px;
+  line-height: 20px;
+}
+.vcard {
+  font-style: normal;
+}
+.vcardline {
+  display: block;
+}
+.vcardline .fn, address b {
+  font-weight: normal;
+}
+.vcardline .hidden {
+  display: none;
+}
+
+dl {
+  margin-left: 1em;
+}
+dl.dl-horizontal: {
+  margin-left: 0;
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.nohang > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .5em;
+}
+dl.compact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+ul.empty {
+  list-style-type: none;
+}
+ul.empty li {
+  margin-top: .5em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+hr.noprint {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #2a6496;
+}
+a[href]:hover {
+  background-color: #eee;
+}
+
+p, ol, ul, li {
+  padding: 0;
+}
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
+}
+address {
+  font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
+}
+
+.github-fork-ribbon-wrapper {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* "Fork me on GitHub" CSS ribbon based on
+   * https://github.com/simonwhitaker/github-fork-ribbon-css
+   */
+  .github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    pointer-events: auto;
+
+    top: 38px;
+    right: -45px;
+
+    transform: rotate(45deg);
+  }
+
+  .github-fork-ribbon a[href],
+  .github-fork-ribbon a[href]:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    width: 190px;
+    line-height: 18px;
+
+    display: inline-block;
+    padding: 2px 0;
+
+    border: 1.5px dotted #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .github-fork-ribbon-wrapper {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    overflow: hidden;
+    top: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .github-fork-ribbon-wrapper {
+    position: fixed;
+  }
+/*]]>*/</style>
+<meta name="viewport" content="initial-scale=1.0">
+
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Change Log">
+<link href="#rfc.section.2" rel="Chapter" title="2 Terminology">
+<link href="#rfc.section.3" rel="Chapter" title="3 Basic Assumptions">
+<link href="#rfc.section.4" rel="Chapter" title="4 Protocol Overview">
+<link href="#rfc.section.5" rel="Chapter" title="5 Ratchet Trees">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Terminology">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Ratchet Tree Nodes">
+<link href="#rfc.section.5.2.1" rel="Chapter" title="5.2.1 Ratchet Tree Updates">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Cryptographic Objects">
+<link href="#rfc.section.5.3.1" rel="Chapter" title="5.3.1 Curve25519, SHA-256, and AES-128-GCM">
+<link href="#rfc.section.5.3.2" rel="Chapter" title="5.3.2 P-256, SHA-256, and AES-128-GCM">
+<link href="#rfc.section.5.4" rel="Chapter" title="5.4 Credentials">
+<link href="#rfc.section.5.5" rel="Chapter" title="5.5 Group State">
+<link href="#rfc.section.5.6" rel="Chapter" title="5.6 Direct Paths">
+<link href="#rfc.section.5.7" rel="Chapter" title="5.7 Key Schedule">
+<link href="#rfc.section.6" rel="Chapter" title="6 Initialization Keys">
+<link href="#rfc.section.7" rel="Chapter" title="7 Handshake Messages">
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Init">
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Add">
+<link href="#rfc.section.7.3" rel="Chapter" title="7.3 Update">
+<link href="#rfc.section.7.4" rel="Chapter" title="7.4 Remove">
+<link href="#rfc.section.8" rel="Chapter" title="8 Sequencing of State Changes">
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Server-Enforced Ordering">
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Client-Enforced Ordering">
+<link href="#rfc.section.8.3" rel="Chapter" title="8.3 Merging Updates">
+<link href="#rfc.section.9" rel="Chapter" title="9 Message Protection">
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 Application Key Schedule">
+<link href="#rfc.section.9.1.1" rel="Chapter" title="9.1.1 Updating the Application Secret">
+<link href="#rfc.section.9.1.2" rel="Chapter" title="9.1.2 Application AEAD Key Calculation">
+<link href="#rfc.section.9.2" rel="Chapter" title="9.2 Message Encryption and Decryption">
+<link href="#rfc.section.9.2.1" rel="Chapter" title="9.2.1 Delayed and Reordered Application messages">
+<link href="#rfc.section.10" rel="Chapter" title="10 Security Considerations">
+<link href="#rfc.section.10.1" rel="Chapter" title="10.1 Confidentiality of the Group Secrets">
+<link href="#rfc.section.10.2" rel="Chapter" title="10.2 Authentication">
+<link href="#rfc.section.10.3" rel="Chapter" title="10.3 Forward and post-compromise security">
+<link href="#rfc.section.10.4" rel="Chapter" title="10.4 Init Key Reuse">
+<link href="#rfc.section.11" rel="Chapter" title="11 IANA Considerations">
+<link href="#rfc.section.12" rel="Chapter" title="12 Contributors">
+<link href="#rfc.references" rel="Chapter" title="13 References">
+<link href="#rfc.references.1" rel="Chapter" title="13.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="13.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Tree Math">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.11.1 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Barnes, R., Millican, J., Omara, E., Cohn-Gordon, K., and R. Robert" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-mls-protocol-latest" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-10-13" />
+  <meta name="dct.abstract" content="Messaging applications are increasingly making use of end-to-end security mechanisms to ensure that messages are only accessible to the communicating endpoints, and not to any servers involved in delivering messages.  Establishing keys to provide such protections is challenging for group chat settings, in which more than two participants need to agree on a key but may not be online at the same time.  In this document, we specify a key establishment protocol that provides efficient asynchronous group key establishment with forward secrecy and post-compromise security for groups in size ranging from two to thousands." />
+  <meta name="description" content="Messaging applications are increasingly making use of end-to-end security mechanisms to ensure that messages are only accessible to the communicating endpoints, and not to any servers involved in delivering messages.  Establishing keys to provide such protections is challenging for group chat settings, in which more than two participants need to agree on a key but may not be online at the same time.  In this document, we specify a key establishment protocol that provides efficient asynchronous group key establishment with forward secrecy and post-compromise security for groups in size ranging from two to thousands." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Network Working Group</td>
+<td class="right">R. Barnes</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">Cisco</td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right">J. Millican</td>
+</tr>
+<tr>
+<td class="left">Expires: April 16, 2019</td>
+<td class="right">Facebook</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">E. Omara</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">Google</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">K. Cohn-Gordon</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">University of Oxford</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">R. Robert</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">Wire</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">October 13, 2018</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">The Messaging Layer Security (MLS) Protocol<br />
+  <span class="filename">draft-ietf-mls-protocol-latest</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>Messaging applications are increasingly making use of end-to-end security mechanisms to ensure that messages are only accessible to the communicating endpoints, and not to any servers involved in delivering messages.  Establishing keys to provide such protections is challenging for group chat settings, in which more than two participants need to agree on a key but may not be online at the same time.  In this document, we specify a key establishment protocol that provides efficient asynchronous group key establishment with forward secrecy and post-compromise security for groups in size ranging from two to thousands.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on April 16, 2019.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Change Log</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">Terminology</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Basic Assumptions</a>
+</li>
+<li>4.   <a href="#rfc.section.4">Protocol Overview</a>
+</li>
+<li>5.   <a href="#rfc.section.5">Ratchet Trees</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Terminology</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">Ratchet Tree Nodes</a>
+</li>
+<ul><li>5.2.1.   <a href="#rfc.section.5.2.1">Ratchet Tree Updates</a>
+</li>
+</ul><li>5.3.   <a href="#rfc.section.5.3">Cryptographic Objects</a>
+</li>
+<ul><li>5.3.1.   <a href="#rfc.section.5.3.1">Curve25519, SHA-256, and AES-128-GCM</a>
+</li>
+<li>5.3.2.   <a href="#rfc.section.5.3.2">P-256, SHA-256, and AES-128-GCM</a>
+</li>
+</ul><li>5.4.   <a href="#rfc.section.5.4">Credentials</a>
+</li>
+<li>5.5.   <a href="#rfc.section.5.5">Group State</a>
+</li>
+<li>5.6.   <a href="#rfc.section.5.6">Direct Paths</a>
+</li>
+<li>5.7.   <a href="#rfc.section.5.7">Key Schedule</a>
+</li>
+</ul><li>6.   <a href="#rfc.section.6">Initialization Keys</a>
+</li>
+<li>7.   <a href="#rfc.section.7">Handshake Messages</a>
+</li>
+<ul><li>7.1.   <a href="#rfc.section.7.1">Init</a>
+</li>
+<li>7.2.   <a href="#rfc.section.7.2">Add</a>
+</li>
+<li>7.3.   <a href="#rfc.section.7.3">Update</a>
+</li>
+<li>7.4.   <a href="#rfc.section.7.4">Remove</a>
+</li>
+</ul><li>8.   <a href="#rfc.section.8">Sequencing of State Changes</a>
+</li>
+<ul><li>8.1.   <a href="#rfc.section.8.1">Server-Enforced Ordering</a>
+</li>
+<li>8.2.   <a href="#rfc.section.8.2">Client-Enforced Ordering</a>
+</li>
+<li>8.3.   <a href="#rfc.section.8.3">Merging Updates</a>
+</li>
+</ul><li>9.   <a href="#rfc.section.9">Message Protection</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.section.9.1">Application Key Schedule</a>
+</li>
+<ul><li>9.1.1.   <a href="#rfc.section.9.1.1">Updating the Application Secret</a>
+</li>
+<li>9.1.2.   <a href="#rfc.section.9.1.2">Application AEAD Key Calculation</a>
+</li>
+</ul><li>9.2.   <a href="#rfc.section.9.2">Message Encryption and Decryption</a>
+</li>
+<ul><li>9.2.1.   <a href="#rfc.section.9.2.1">Delayed and Reordered Application messages</a>
+</li>
+</ul></ul><li>10.   <a href="#rfc.section.10">Security Considerations</a>
+</li>
+<ul><li>10.1.   <a href="#rfc.section.10.1">Confidentiality of the Group Secrets</a>
+</li>
+<li>10.2.   <a href="#rfc.section.10.2">Authentication</a>
+</li>
+<li>10.3.   <a href="#rfc.section.10.3">Forward and post-compromise security</a>
+</li>
+<li>10.4.   <a href="#rfc.section.10.4">Init Key Reuse</a>
+</li>
+</ul><li>11.   <a href="#rfc.section.11">IANA Considerations</a>
+</li>
+<li>12.   <a href="#rfc.section.12">Contributors</a>
+</li>
+<li>13.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>13.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>13.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Tree Math</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">DISCLAIMER: This is a work-in-progress draft of MLS and has not yet seen significant security analysis. It should not be used as a basis for building production systems.</p>
+<p id="rfc.section.1.p.2">RFC EDITOR: PLEASE REMOVE THE FOLLOWING PARAGRAPH The source for this draft is maintained in GitHub. Suggested changes should be submitted as pull requests at https://github.com/mlswg/mls-protocol.  Instructions are on that page as well. Editorial changes can be managed in GitHub, but any substantive change should be discussed on the MLS mailing list.</p>
+<p id="rfc.section.1.p.3">A group of agents who want to send each other encrypted messages needs a way to derive shared symmetric encryption keys. For two parties, this problem has been studied thoroughly, with the Double Ratchet emerging as a common solution <a href="#doubleratchet" class="xref">[doubleratchet]</a> <a href="#signal" class="xref">[signal]</a>.  Channels implementing the Double Ratchet enjoy fine-grained forward secrecy as well as post-compromise security, but are nonetheless efficient enough for heavy use over low-bandwidth networks.</p>
+<p id="rfc.section.1.p.4">For a group of size greater than two, a common strategy is to unilaterally broadcast symmetric &#8220;sender&#8221; keys over existing shared symmetric channels, and then for each agent to send messages to the group encrypted with their own sender key. Unfortunately, while this improves efficiency over pairwise broadcast of individual messages  and (with the addition of a hash ratchet) provides forward secrecy, it is difficult to achieve post-compromise security with sender keys. An adversary who learns a sender key can often indefinitely and passively eavesdrop on that sender&#8217;s messages.  Generating and distributing a new sender key provides a form of post-compromise security with regard to that sender.  However, it requires computation and communications resources that scale linearly as the size of the group.</p>
+<p id="rfc.section.1.p.5">In this document, we describe a protocol based on tree structures that enable asynchronous group keying with forward secrecy and post-compromise security.  Based on earlier work on &#8220;asynchronous ratcheting trees&#8221; <a href="#art" class="xref">[art]</a>, the mechanism presented here use a asynchronous key-encapsulation mechanism for tree structures.  This mechanism allows the members of the group to derive and update shared keys with costs that scale as the log of the group size.</p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> <a href="#change-log" id="change-log">Change Log</a>
+</h1>
+<p id="rfc.section.1.1.p.1">RFC EDITOR PLEASE DELETE THIS SECTION.</p>
+<p id="rfc.section.1.1.p.2">draft-02</p>
+<p></p>
+
+<ul><li>Removed ART (*)</li></ul>
+<p id="rfc.section.1.1.p.4">draft-01</p>
+<p></p>
+
+<ul>
+<li>Initial description of the Message Protection mechanism. (*)</li>
+<li>Initial specification proposal for the Application Key Schedule using the per-participant chaining of the Application Secret design. (*)</li>
+<li>Initial specification proposal for an encryption mechanism to protect Application Messages using an AEAD scheme. (*)</li>
+<li>Initial specification proposal for an authentication mechanism of Application Messages using signatures. (*)</li>
+<li>Initial specification proposal for a padding mechanism to improving protection of Application Messages against traffic analysis. (*)</li>
+<li>Inversion of the Group Init Add and Application Secret derivations in the Handshake Key Schedule to be ease chaining in case we switch design. (*)</li>
+<li>Removal of the UserAdd construct and split of GroupAdd into Add and Welcome messages (*)</li>
+<li>Initial proposal for authenticating Handshake messages by signing over group state and including group state in the key schedule (*)</li>
+<li>Added an appendix with example code for tree math</li>
+<li>Changed the ECIES mechanism used by TreeKEM so that it uses nonces generated from the shared secret</li>
+</ul>
+<p id="rfc.section.1.1.p.6">draft-00</p>
+<p></p>
+
+<ul><li>Initial adoption of draft-barnes-mls-protocol-01 as a WG item.</li></ul>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
+<p id="rfc.section.2.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
+<p id="rfc.section.2.p.2">[TODO: The architecture document uses &#8220;Client&#8221; instead of &#8220;Participant&#8221;.  Harmonize terminology.]</p>
+<p></p>
+
+<dl>
+<dt>Participant:</dt>
+<dd style="margin-left: 8">An agent that uses this protocol to establish shared cryptographic state with other participants.  A participant is defined by the cryptographic keys it holds.  An application may use one participant per device (keeping keys local to each device) or sync keys among a user&#8217;s devices so that each user appears as a single participant.</dd>
+<dt>Group:</dt>
+<dd style="margin-left: 8">A collection of participants with shared cryptographic state.</dd>
+<dt>Member:</dt>
+<dd style="margin-left: 8">A participant that is included in the shared state of a group, and has access to the group&#8217;s secrets.</dd>
+<dt>Initialization Key:</dt>
+<dd style="margin-left: 8">A short-lived Diffie-Hellman key pair used to introduce a new member to a group.  Initialization keys are published for individual participants (UserInitKey).</dd>
+<dt>Leaf Key:</dt>
+<dd style="margin-left: 8">A short-lived Diffie-Hellman key pair that represents a group member&#8217;s contribution to the group secret, so called because the participants leaf keys are the leaves in the group&#8217;s ratchet tree.</dd>
+<dt>Identity Key:</dt>
+<dd style="margin-left: 8">A long-lived signing key pair used to authenticate the sender of a message.</dd>
+</dl>
+<p id="rfc.section.2.p.4">Terminology specific to tree computations is described in <a href="#ratchet-trees" class="xref">Section 5</a>.</p>
+<p id="rfc.section.2.p.5">We use the TLS presentation language <a href="#RFC8446" class="xref">[RFC8446]</a> to describe the structure of protocol messages.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#basic-assumptions" id="basic-assumptions">Basic Assumptions</a>
+</h1>
+<p id="rfc.section.3.p.1">This protocol is designed to execute in the context of a Messaging Service (MS) as described in [I-D.ietf-mls-architecture].  In particular, we assume the MS provides the following services:</p>
+<p></p>
+
+<ul>
+<li>A long-term identity key provider which allows participants to authenticate protocol messages in a group. These keys MUST be kept for the lifetime of the group as there is no mechanism in the protocol for changing a participant&#8217;s identity key.</li>
+<li>A broadcast channel, for each group, which will relay a message to all members of a group.  For the most part, we assume that this channel delivers messages in the same order to all participants.  (See <a href="#sequencing" class="xref">Section 8</a> for further considerations.)</li>
+<li>A directory to which participants can publish initialization keys, and from which participant can download initialization keys for other participants.</li>
+</ul>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#protocol-overview" id="protocol-overview">Protocol Overview</a>
+</h1>
+<p id="rfc.section.4.p.1">The goal of this protocol is to allow a group of participants to exchange confidential and authenticated messages. It does so by deriving a sequence of secrets and keys known only to group members. Those should be secret against an active network adversary and should have both forward and post-compromise secrecy with respect to compromise of a participant.</p>
+<p id="rfc.section.4.p.2">We describe the information stored by each participant as a <em>state</em>, which includes both public and private data. An initial state, including an initial set of participants, is set up by a group creator using the <em>Init</em> algorithm and based on information pre-published by the initial members. The creator sends the <em>GroupInit</em> message to the participants, who can then set up their own group state and derive the same shared secret. Participants then exchange messages to produce new shared states which are causally linked to their predecessors, forming a logical Directed Acyclic Graph (DAG) of states.  Participants can send <em>Update</em> messages for post-compromise secrecy and new participants can be added or existing participants removed from the group.</p>
+<p id="rfc.section.4.p.3">The protocol algorithms we specify here follow. Each algorithm specifies both (i) how a participant performs the operation and (ii) how other participants update their state based on it.</p>
+<p id="rfc.section.4.p.4">There are four major operations in the lifecycle of a group:</p>
+<p></p>
+
+<ul>
+<li>Adding a member, initiated by a current member;</li>
+<li>Adding a member, initiated by the new member;</li>
+<li>Updating the leaf secret of a member;</li>
+<li>Removing a member.</li>
+</ul>
+<p id="rfc.section.4.p.6">Before the initialization of a group, participants publish UserInitKey objects to a directory provided to the Messaging Service.</p>
+<pre>
+                                                          Group
+A              B              C          Directory       Channel
+|              |              |              |              |
+| UserInitKeyA |              |              |              |
+|-------------------------------------------&gt;|              |
+|              |              |              |              |
+|              | UserInitKeyB |              |              |
+|              |----------------------------&gt;|              |
+|              |              |              |              |
+|              |              | UserInitKeyC |              |
+|              |              |-------------&gt;|              |
+|              |              |              |              |
+</pre>
+<p id="rfc.section.4.p.7">When a participant A wants to establish a group with B and C, it first downloads InitKeys for B and C.  It then initializes a group state containing only itself and uses the InitKeys to compute Add messages to add B and C, in a sequence chosen by A.  These messages are broadcasted to the Group, and processed in sequence by B and C.  Messages received before a participant has joined the group are ignored.  Only after A has received its Add messages back from the server does it update its state to reflect their addition.</p>
+<pre>
+                                                               Group
+A              B              C          Directory            Channel
+|              |              |              |                   |
+|         UserInitKeyB, UserInitKeyC         |                   |
+|&lt;-------------------------------------------|                   |
+|              |              |              |                   |
+|              |              |              | Add(A-&gt;AB)        |
+|---------------------------------------------------------------&gt;|
+|              |              |              |                   |
+|              |              |              | Add(AB-&gt;ABC)      |
+|---------------------------------------------------------------&gt;|
+|              |              |              |                   |
+|              |              |              | Add(A-&gt;AB)        |
+|&lt;---------------------------------------------------------------|
+|state.add(B)  |&lt;------------------------------------------------|
+|              |state.init()  |x---------------------------------|
+|              |              |              |                   |
+|              |              |              | Add(AB-&gt;ABC)      |
+|&lt;---------------------------------------------------------------|
+|state.add(C)  |&lt;------------------------------------------------|
+|              |state.add(C)  |&lt;---------------------------------|
+|              |              |state.init()  |                   |
+|              |              |              |                   |
+</pre>
+<p id="rfc.section.4.p.8">Subsequent additions of group members proceed in the same way.  Any member of the group can download an InitKey for a new participant and broadcast an Add message that the current group can use to update their state and the new participant can use to initialize its state.</p>
+<p id="rfc.section.4.p.9">To enforce forward secrecy and post-compromise security of messages, each participant periodically updates its leaf secret which represents its contribution to the group secret.  Any member of the group can send an Update at any time by generating a fresh leaf secret and sending an Update message that describes how to update the group secret with that new information.  Once all participants have processed this message, the group&#8217;s secrets will be unknown to an attacker that had compromised the sender&#8217;s prior leaf secret.</p>
+<p id="rfc.section.4.p.10">It is left to the application to determine the interval of time between Update messages. This policy could require a change for each message, or it could require sending an update every week or more.</p>
+<pre>
+                                                          Group
+A              B     ...      Z          Directory        Channel
+|              |              |              |              |
+| Update(A)    |              |              |              |
+|----------------------------------------------------------&gt;|
+|              |              |              |              |
+|              |              |              | Update(A)    |
+|&lt;----------------------------------------------------------|
+|state.upd(A)  |&lt;-------------------------------------------|
+|              |state.upd(A)  |&lt;----------------------------|
+|              |              |state.upd(A)  |              |
+|              |              |              |              |
+</pre>
+<p id="rfc.section.4.p.11">Users are removed from the group in a similar way, as an update is effectively removing the old leaf from the group.  Any member of the group can generate a Remove message that adds new entropy to the group state that is known to all members except the removed member.  After other participants have processed this message, the group&#8217;s secrets will be unknown to the removed participant.  Note that this does not necessarily imply that any member is actually allowed to evict other members; groups can layer authentication-based access control policies on top of these basic mechanism.</p>
+<pre>
+                                                          Group
+A              B     ...      Z          Directory       Channel
+|              |              |              |              |
+|              |              | Remove(B)    |              |
+|              |              |----------------------------&gt;|
+|              |              |              |              |
+|              |              |              | Remove(B)    |
+|&lt;----------------------------------------------------------|
+|state.del(B)  |              |&lt;----------------------------|
+|              |              |state.del(B)  |              |
+|              |              |              |              |
+|              |              |              |              |
+</pre>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#ratchet-trees" id="ratchet-trees">Ratchet Trees</a>
+</h1>
+<p id="rfc.section.5.p.1">The protocol uses &#8220;ratchet trees&#8221; for deriving shared secrets among a group of participants.</p>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#terminology-1" id="terminology-1">Terminology</a>
+</h1>
+<p id="rfc.section.5.1.p.1">Trees consist of <em>nodes</em>. A node is a <em>leaf</em> if it has no children, and a <em>parent</em> otherwise; note that all parents in our ratchet trees have precisely two children, a <em>left</em> child and a <em>right</em> child. A node is the <em>root</em> of a tree if it has no parents, and <em>intermediate</em> if it has both children and parents. The <em>descendants</em> of a node are that node, its children, and the descendants of its children, and we say a tree <em>contains</em> a node if that node is a descendant of the root of the tree. Nodes are <em>siblings</em> if they share the same parent.</p>
+<p id="rfc.section.5.1.p.2">A <em>subtree</em> of a tree is the tree given by the descendants of any node, the <em>head</em> of the subtree. The <em>size</em> of a tree or subtree is the number of leaf nodes it contains.  For a given parent node, its <em>left subtree</em> is the subtree with its left child as head (respectively <em>right subtree</em>).</p>
+<p id="rfc.section.5.1.p.3">All trees used in this protocol are left-balanced binary trees. A binary tree is <em>full</em> (and <em>balanced</em>) if it its size is a power of two and for any parent node in the tree, its left and right subtrees have the same size. If a subtree is full and it is not a subset of any other full subtree, then it is <em>maximal</em>.</p>
+<p id="rfc.section.5.1.p.4">A binary tree is <em>left-balanced</em> if for every parent, either the parent is balanced, or the left subtree of that parent is the largest full subtree that could be constructed from the leaves present in the parent&#8217;s own subtree.  Note that given a list of <samp>n</samp> items, there is a unique left-balanced binary tree structure with these elements as leaves.  In such a left-balanced tree, the <samp>k-th</samp> leaf node refers to the <samp>k-th</samp> leaf node in the tree when counting from the left, starting from 0.</p>
+<p id="rfc.section.5.1.p.5">The <em>direct path</em> of a root is the empty list, and of any other node is the concatenation of that node with the direct path of its parent. The <em>copath</em> of a node is the list of siblings of nodes in its direct path, excluding the root. The <em>frontier</em> of a tree is the list of heads of the maximal full subtrees of the tree, ordered from left to right.</p>
+<p id="rfc.section.5.1.p.6">For example, in the below tree:</p>
+<p></p>
+
+<ul>
+<li>The direct path of C is (C, CD, ABCD)</li>
+<li>The copath of C is (D, AB, EFG)</li>
+<li>The frontier of the tree is (ABCD, EF, G)</li>
+</ul>
+<pre>
+            ABCDEFG
+           /      \
+          /        \
+         /          \
+     ABCD            EFG
+    /    \          /  \
+   /      \        /    \
+  AB      CD      EF    |
+ / \     / \     / \    |
+A   B   C   D   E   F   G
+
+                    1 1 1
+0 1 2 3 4 5 6 7 8 9 0 1 2
+</pre>
+<p id="rfc.section.5.1.p.8">Each node in the tree is assigned an <em>index</em>, starting at zero and running from left to right.  A node is a leaf node if and only if it has an even index.  The indices for the nodes in the above tree are as follows:</p>
+<p></p>
+
+<ul>
+<li>0 = A</li>
+<li>1 = AB</li>
+<li>2 = B</li>
+<li>3 = ABCD</li>
+<li>4 = C</li>
+<li>5 = CD</li>
+<li>6 = D</li>
+<li>7 = ABCDEFG</li>
+<li>8 = E</li>
+<li>9 = EF</li>
+<li>10 = F</li>
+<li>11 = EFG</li>
+<li>12 = G</li>
+</ul>
+<p id="rfc.section.5.1.p.10">(Note that left-balanced binary trees are the same structure that is used for the Merkle trees in the Certificate Transparency protocol <a href="#I-D.ietf-trans-rfc6962-bis" class="xref">[I-D.ietf-trans-rfc6962-bis]</a>.)</p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#ratchet-tree-nodes" id="ratchet-tree-nodes">Ratchet Tree Nodes</a>
+</h1>
+<p id="rfc.section.5.2.p.1">Ratchet trees are used for generating shared group secrets. In this section, we describe the structure of a ratchet tree.  A particular instance of a ratchet tree is based on the following cryptographic primitives, defined by the ciphersuite in use:</p>
+<p></p>
+
+<ul>
+<li>A Diffie-Hellman finite-field group or elliptic curve</li>
+<li>A Derive-Key-Pair function that produces a key pair from an octet string</li>
+<li>A hash function</li>
+</ul>
+<p id="rfc.section.5.2.p.3">A ratchet tree is a left-balanced binary tree, in which each node contains up to three values:</p>
+<p></p>
+
+<ul>
+<li>A secret octet string (optional)</li>
+<li>An asymmetric private key (optional)</li>
+<li>An asymmetric public key</li>
+</ul>
+<p id="rfc.section.5.2.p.5">The private key and public key for a node are derived from its secret value using the Derive-Key-Pair operation.</p>
+<p id="rfc.section.5.2.p.6">The contents of a parent node are computed from one of its children as follows:</p>
+<pre>
+parent_secret = Hash(child_secret)
+parent_private, parent_public = Derive-Key-Pair(parent_secret)
+</pre>
+<p id="rfc.section.5.2.p.7">The contents of the parent are based on the latest-updated child.  For example, if participants with leaf secrets A, B, C, and D join a group in that order, then the resulting tree will have the following structure:</p>
+<pre>
+     H(H(D))
+    /       \
+ H(B)       H(D)
+ /  \       /  \
+A    B     C    D
+</pre>
+<p id="rfc.section.5.2.p.8">If the first participant subsequently changes its leaf secret to be X, then the tree will have the following structure.</p>
+<pre>
+     H(H(X))
+    /       \
+ H(X)       H(D)
+ /  \       /  \
+X    B     C    D
+</pre>
+<h1 id="rfc.section.5.2.1">
+<a href="#rfc.section.5.2.1">5.2.1.</a> <a href="#ratchet-tree-updates" id="ratchet-tree-updates">Ratchet Tree Updates</a>
+</h1>
+<p id="rfc.section.5.2.1.p.1">In order to update the state of the group such as adding and removing participants, MLS messages are used to make changes to the group&#8217;s ratchet tree.  The participant proposing an update to the tree transmits a representation of a set of tree nodes along the direct path from a leaf to the root. Other participants in the group can use these nodes to update their view of the tree, aligning their copy of the tree to the sender&#8217;s.</p>
+<p id="rfc.section.5.2.1.p.2">To perform an update, the sender transmits a node by sending the public key for the node and an encrypted version of the secret value for the node.  The secret value is encrypted in such a way that it can be decrypted only by holders of the private key for one of its children, namely the child that is not in the direct path being transmitted.  That is, each node in the direct path is encrypted for holders of the private key for a node in the corresponding copath.  For leaf nodes, no encrypted secret is transmitted.</p>
+<p id="rfc.section.5.2.1.p.3">The recipient of an update processes it with the following steps:</p>
+<p></p>
+
+<ol>
+<li>Compute the updated secret values * Identify a node in the direct path for which the local participant has the private key * Decrypt the secret value for that node * Compute secret values for ancestors of that node by hashing the decrypted secret</li>
+<li>Merge the updated secrets into the tree * Replace the public keys for nodes on the direct path with the received public keys * For nodes where an updated secret was computed in step 1, replace the secret value for the node with the updated value</li>
+</ol>
+<p id="rfc.section.5.2.1.p.5">For example, suppose we had the following tree:</p>
+<pre>
+      G
+    /   \
+   /     \
+  E       F
+ / \     / \
+A   B   C   D
+</pre>
+<p id="rfc.section.5.2.1.p.6">If an update is made along the direct path B-E-G, then the following values will be transmitted (using pk(X) to represent the public key corresponding to the secret value X and E(K, S) to represent public-key encryption to the public key K of the secret value S):</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Public Key</th>
+<th class="left">Ciphertext</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">pk(G)</td>
+<td class="left">E(pk(F), G)</td>
+</tr>
+<tr>
+<td class="left">pk(E)</td>
+<td class="left">E(pk(A), E)</td>
+</tr>
+<tr>
+<td class="left">pk(B)</td>
+<td class="left"></td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.5.3">
+<a href="#rfc.section.5.3">5.3.</a> <a href="#cryptographic-objects" id="cryptographic-objects">Cryptographic Objects</a>
+</h1>
+<p id="rfc.section.5.3.p.1">Each MLS session uses a single ciphersuite that specifies the following primitives to be used in group key computations:</p>
+<p></p>
+
+<ul>
+<li>A hash function</li>
+<li>A Diffie-Hellman finite-field group or elliptic curve</li>
+<li>An AEAD encryption algorithm <a href="#RFC5116" class="xref">[RFC5116]</a>
+</li>
+</ul>
+<p id="rfc.section.5.3.p.3">The ciphersuite must also specify an algorithm <samp>Derive-Key-Pair</samp> that maps octet strings with the same length as the output of the hash function to key pairs for the asymmetric encryption scheme.</p>
+<p id="rfc.section.5.3.p.4">Public keys used in the protocol are opaque values in a format defined by the ciphersuite, using the following types:</p>
+<pre>
+uint16 CipherSuite;
+opaque DHPublicKey&lt;1..2^16-1&gt;;
+opaque SignaturePublicKey&lt;1..2^16-1&gt;;
+</pre>
+<h1 id="rfc.section.5.3.1">
+<a href="#rfc.section.5.3.1">5.3.1.</a> <a href="#curve25519-sha-256-and-aes-128-gcm" id="curve25519-sha-256-and-aes-128-gcm">Curve25519, SHA-256, and AES-128-GCM</a>
+</h1>
+<p id="rfc.section.5.3.1.p.1">This ciphersuite uses the following primitives:</p>
+<p></p>
+
+<ul>
+<li>Hash function: SHA-256</li>
+<li>Diffie-Hellman group: Curve25519 <a href="#RFC7748" class="xref">[RFC7748]</a>
+</li>
+<li>AEAD: AES-128-GCM</li>
+</ul>
+<p id="rfc.section.5.3.1.p.3">Given an octet string X, the private key produced by the Derive-Key-Pair operation is SHA-256(X).  (Recall that any 32-octet string is a valid Curve25519 private key.)  The corresponding public key is X25519(SHA-256(X), 9).</p>
+<p id="rfc.section.5.3.1.p.4">Implementations SHOULD use the approach specified in <a href="#RFC7748" class="xref">[RFC7748]</a> to calculate the Diffie-Hellman shared secret.  Implementations MUST check whether the computed Diffie-Hellman shared secret is the all-zero value and abort if so, as described in Section 6 of <a href="#RFC7748" class="xref">[RFC7748]</a>.  If implementers use an alternative implementation of these elliptic curves, they SHOULD perform the additional checks specified in Section 7 of <a href="#RFC7748" class="xref">[RFC7748]</a></p>
+<p id="rfc.section.5.3.1.p.5">Encryption keys are derived from shared secrets by taking the first 16 bytes of H(Z), where Z is the shared secret and H is SHA-256.</p>
+<h1 id="rfc.section.5.3.2">
+<a href="#rfc.section.5.3.2">5.3.2.</a> <a href="#p-256-sha-256-and-aes-128-gcm" id="p-256-sha-256-and-aes-128-gcm">P-256, SHA-256, and AES-128-GCM</a>
+</h1>
+<p id="rfc.section.5.3.2.p.1">This ciphersuite uses the following primitives:</p>
+<p></p>
+
+<ul>
+<li>Hash function: P-256</li>
+<li>Diffie-Hellman group: secp256r1 (NIST P-256)</li>
+<li>AEAD: AES-128-GCM</li>
+</ul>
+<p id="rfc.section.5.3.2.p.3">Given an octet string X, the private key produced by the Derive-Key-Pair operation is SHA-256(X), interpreted as a big-endian integer.  The corresponding public key is the result of multiplying the standard P-256 base point by this integer.</p>
+<p id="rfc.section.5.3.2.p.4">P-256 ECDH calculations (including parameter and key generation as well as the shared secret calculation) are performed according to <a href="#IEEE1363" class="xref">[IEEE1363]</a> using the ECKAS-DH1 scheme with the identity map as key derivation function (KDF), so that the shared secret is the x-coordinate of the ECDH shared secret elliptic curve point represented as an octet string.  Note that this octet string (Z in IEEE 1363 terminology) as output by FE2OSP, the Field Element to Octet String Conversion Primitive, has constant length for any given field; leading zeros found in this octet string MUST NOT be truncated.</p>
+<p id="rfc.section.5.3.2.p.5">(Note that this use of the identity KDF is a technicality.  The complete picture is that ECDH is employed with a non-trivial KDF because MLS does not directly use this secret for anything other than for computing other secrets.)</p>
+<p id="rfc.section.5.3.2.p.6">Clients MUST validate remote public values by ensuring that the point is a valid point on the elliptic curve.  The appropriate validation procedures are defined in Section 4.3.7 of <a href="#X962" class="xref">[X962]</a> and alternatively in Section 5.6.2.3 of <a href="#keyagreement" class="xref">[keyagreement]</a>.  This process consists of three steps: (1) verify that the value is not the point at infinity (O), (2) verify that for Y = (x, y) both integers are in the correct interval, (3) ensure that (x, y) is a correct solution to the elliptic curve equation.  For these curves, implementers do not need to verify membership in the correct subgroup.</p>
+<p id="rfc.section.5.3.2.p.7">Encryption keys are derived from shared secrets by taking the first 16 bytes of H(Z), where Z is the shared secret and H is SHA-256.</p>
+<h1 id="rfc.section.5.4">
+<a href="#rfc.section.5.4">5.4.</a> <a href="#credentials" id="credentials">Credentials</a>
+</h1>
+<p id="rfc.section.5.4.p.1">A member of a group authenticates the identities of other participants by means of credentials issued by some authentication system, e.g., a PKI.  Each type of credential MUST express the holder&#8217;s identity as well as the public key of a signature key pair that the holder of the credential will use to sign MLS messages.  Credentials MAY also include information that allows a relying party to verify the identity / signing key binding.</p>
+<pre>
+enum {
+    basic(0),
+    x509(1),
+    (255)
+} CredentialType;
+
+struct {
+    opaque identity&lt;0..2^16-1&gt;;
+    SignaturePublicKey public_key;
+} BasicCredential;
+
+struct {
+    CredentialType credential_type;
+    select (credential_type) {
+        case basic:
+            BasicCredential;
+
+        case x509:
+            opaque cert_data&lt;1..2^24-1&gt;;
+    };
+} Credential;
+</pre>
+<h1 id="rfc.section.5.5">
+<a href="#rfc.section.5.5">5.5.</a> <a href="#group-state" id="group-state">Group State</a>
+</h1>
+<p id="rfc.section.5.5.p.1">Each participant in the group maintains a representation of the state of the group:</p>
+<pre>
+struct {
+  opaque group_id&lt;0..255&gt;;
+  uint32 epoch;
+  Credential roster&lt;1..2^32-1&gt;;
+  PublicKey tree&lt;1..2^32-1&gt;;
+  GroupOperation transcript&lt;0..2^32-1&gt;;
+} GroupState;
+</pre>
+<p id="rfc.section.5.5.p.2">The fields in this state have the following semantics:</p>
+<p></p>
+
+<ul>
+<li>The <samp>group_id</samp> field is an application-defined identifier for the group.</li>
+<li>The <samp>epoch</samp> field represents the current version of the group key.</li>
+<li>The <samp>roster</samp> field contains credentials for the occupied slots in the tree, including the identity and signature public key for the holder of the slot.</li>
+<li>The <samp>tree</samp> field contains the public keys corresponding to the nodes of the ratchet tree for this group.  The length of this vector MUST be <samp>2*size + 1</samp>, where <samp>size</samp> is the length of the roster, since this is the number of nodes in a tree with <samp>size</samp> leaves, according to the structure described in <a href="#ratchet-trees" class="xref">Section 5</a>.</li>
+<li>The <samp>transcript</samp> field contains the list of <samp>GroupOperation</samp> messages that led to this state.</li>
+</ul>
+<p id="rfc.section.5.5.p.4">When a new member is added to the group, an existing member of the group provides the new member with a Welcome message.  The Welcome message provides the information the new member needs to initialize its GroupState.</p>
+<p id="rfc.section.5.5.p.5">Different group operations will have different effects on the group state.  These effects are described in their respective subsections of <a href="#handshake-messages" class="xref">Section 7</a>.  The following rules apply to all operations:</p>
+<p></p>
+
+<ul>
+<li>The <samp>group_id</samp> field is constant</li>
+<li>The <samp>epoch</samp> field increments by one for each GroupOperation that is processed</li>
+<li>The <samp>transcript</samp> is updated by a GroupOperation message <samp>operation</samp> by appending <samp>operation</samp> to <samp>transcript</samp>
+</li>
+</ul>
+<h1 id="rfc.section.5.6">
+<a href="#rfc.section.5.6">5.6.</a> <a href="#direct-paths" id="direct-paths">Direct Paths</a>
+</h1>
+<p id="rfc.section.5.6.p.1">As described in <a href="#ratchet-tree-updates" class="xref">Section 5.2.1</a>, each MLS message needs to transmit node values along the direct path from a leaf to the root.  The path contains a public key for the leaf node, and a public key and encrypted secret value for intermediate nodes in the path.  In both cases, the path is ordered from the leaf to the root; each node MUST be the parent of its predecessor.</p>
+<pre>
+struct {
+    DHPublicKey ephemeral_key;
+    opaque ciphertext&lt;0..255&gt;;
+} ECIESCiphertext;
+
+struct {
+    DHPublicKey public_key;
+    ECIESCiphertext node_secrets&lt;0..2^16-1&gt;;
+} RatchetNode
+
+struct {
+    RatchetNode nodes&lt;0..2^16-1&gt;;
+} DirectPath;
+</pre>
+<p id="rfc.section.5.6.p.2">The length of the <samp>node\_secrets</samp> vector MUST be zero for the first node in the path and one for all other nodes in the path.</p>
+<p id="rfc.section.5.6.p.3">The ECIESCiphertext values encoding the encrypted secret values are computed as follows:</p>
+<p></p>
+
+<ul>
+<li>Generate an ephemeral DH key pair (x, x*G) in the DH group specified by the ciphersuite in use</li>
+<li>Compute the shared secret Z with the node&#8217;s other child</li>
+<li>Derive a key and nonce as described below</li>
+<li>Encrypt the node&#8217;s secret value using the AEAD algorithm specified by the ciphersuite in use, with the following inputs: <ul>
+<li>Key: The key derived from Z</li>
+<li>Nonce: The nonce derived from Z</li>
+<li>Additional Authenticated Data: The empty octet string</li>
+<li>Plaintext: The secret value, without any further formatting</li>
+</ul>
+</li>
+<li>Encode the ECIESCiphertext with the following values: <ul>
+<li>ephemeral_key: The ephemeral public key x*G</li>
+<li>ciphertext: The AEAD output</li>
+</ul>
+</li>
+</ul>
+<pre>
+key = HKDF-Expand(Secret, ECIESLabel("key"), Length)
+nonce = HKDF-Expand(Secret, ECIESLabel("nonce"), Length)
+
+Where ECIESLabel is specified as:
+
+struct {
+  uint16 length = Length;
+  opaque label&lt;12..255&gt; = "mls10 ecies " + Label;
+} ECIESLabel;
+</pre>
+<p id="rfc.section.5.6.p.5">Decryption is performed in the corresponding way, using the private key of the non-updated child and the ephemeral public key transmitted in the message.</p>
+<h1 id="rfc.section.5.7">
+<a href="#rfc.section.5.7">5.7.</a> <a href="#key-schedule" id="key-schedule">Key Schedule</a>
+</h1>
+<p id="rfc.section.5.7.p.1">Group keys are derived using the HKDF-Extract and HKDF-Expand functions as defined in <a href="#RFC5869" class="xref">[RFC5869]</a>, as well as the functions defined below:</p>
+<pre>
+Derive-Secret(Secret, Label, State, Length) =
+     HKDF-Expand(Secret, HkdfLabel, Length)
+
+Where HkdfLabel is specified as:
+
+struct {
+    uint16 length = Length;
+    opaque label&lt;6..255&gt; = "mls10 " + Label;
+    GroupState state = State;
+} HkdfLabel;
+</pre>
+<p id="rfc.section.5.7.p.2">The Hash function used by HKDF is the ciphersuite hash algorithm.  Hash.length is its output length in bytes.  In the below diagram:</p>
+<p></p>
+
+<ul>
+<li>HKDF-Extract takes its Salt argument from the top and its IKM argument from the left</li>
+<li>Derive-Secret takes its Secret argument from the incoming arrow</li>
+</ul>
+<p id="rfc.section.5.7.p.4">When processing a handshake message, a participant combines the following information to derive new epoch secrets:</p>
+<p></p>
+
+<ul>
+<li>The init secret from the previous epoch</li>
+<li>The update secret for the current epoch</li>
+<li>The GroupState object for current epoch</li>
+</ul>
+<p id="rfc.section.5.7.p.6">Given these inputs, the derivation of secrets for an epoch proceeds as shown in the following diagram:</p>
+<pre>
+               init_secret_[n-1] (or 0)
+                     |
+                     V
+update_secret -&gt; HKDF-Extract = epoch_secret
+                     |
+                     +--&gt; Derive-Secret(., "app", GroupState_[n])
+                     |    = application_secret
+                     |
+                     V
+               Derive-Secret(., "init", GroupState_[n])
+                     |
+                     V
+               init_secret_[n]
+</pre>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#initialization-keys" id="initialization-keys">Initialization Keys</a>
+</h1>
+<p id="rfc.section.6.p.1">In order to facilitate asynchronous addition of participants to a group, it is possible to pre-publish initialization keys that provide some public information about a user.  UserInitKey messages provide information about a potential group member, that a group member can use to add this user to a group asynchronously.</p>
+<p id="rfc.section.6.p.2">A UserInitKey object specifies what ciphersuites a client supports, as well as providing public keys that the client can use for key derivation and signing.  The client&#8217;s identity key is intended to be stable throughout the lifetime of the group; there is no mechanism to change it.  Init keys are intended to be used a very limited number of times, potentially once. (see <a href="#init-key-reuse" class="xref">Section 10.4</a>).</p>
+<p id="rfc.section.6.p.3">The init_keys array MUST have the same length as the cipher_suites array, and each entry in the init_keys array MUST be a public key for the DH group or KEM defined by the corresponding entry in the cipher_suites array.</p>
+<p id="rfc.section.6.p.4">The whole structure is signed using the client&#8217;s identity key.  A UserInitKey object with an invalid signature field MUST be considered malformed.  The input to the signature computation comprises all of the fields except for the signature field.</p>
+<pre>
+struct {
+    CipherSuite cipher_suites&lt;0..255&gt;;
+    DHPublicKey init_keys&lt;1..2^16-1&gt;;
+    SignaturePublicKey identity_key;
+    SignatureScheme algorithm;
+    opaque signature&lt;0..2^16-1&gt;;
+} UserInitKey;
+</pre>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#handshake-messages" id="handshake-messages">Handshake Messages</a>
+</h1>
+<p id="rfc.section.7.p.1">Over the lifetime of a group, its state will change for:</p>
+<p></p>
+
+<ul>
+<li>Group initialization</li>
+<li>A current member adding a new participant</li>
+<li>A current participant updating its leaf key</li>
+<li>A current member deleting another current member</li>
+</ul>
+<p id="rfc.section.7.p.3">In MLS, these changes are accomplished by broadcasting &#8220;handshake&#8221; messages to the group.  Note that unlike TLS and DTLS, there is not a consolidated handshake phase to the protocol.  Rather, handshake messages are exchanged throughout the lifetime of a group, whenever a change is made to the group state. This means an unbounded number of interleaved application and handshake messages.</p>
+<p id="rfc.section.7.p.4">An MLS handshake message encapsulates a specific &#8220;key exchange&#8221; message that accomplishes a change to the group state. It also includes a signature by the sender of the message over the GroupState object representing the state of the group after the change has been made.</p>
+<pre>
+enum {
+    init(0),
+    add(1),
+    update(2),
+    remove(3),
+    (255)
+} GroupOperationType;
+
+struct {
+    GroupOperationType msg_type;
+    select (GroupOperation.msg_type) {
+        case init:      Init;
+        case add:       Add;
+        case update:    Update;
+        case remove:    Remove;
+    };
+} GroupOperation;
+
+struct {
+    uint32 prior_epoch;
+    GroupOperation operation;
+
+    uint32 signer_index;
+    SignatureScheme algorithm;
+    opaque signature&lt;1..2^16-1&gt;;
+} Handshake;
+</pre>
+<p id="rfc.section.7.p.5">The high-level flow for processing a Handshake message is as follows:</p>
+<p></p>
+
+<ol>
+<li>Verify that the <samp>prior_epoch</samp> field of the Handshake message is equal the <samp>epoch</samp> field of the current GroupState object.</li>
+<li>Use the <samp>operation</samp> message to produce an updated GroupState object incorporating the proposed changes.</li>
+<li>Look up the public key for slot index <samp>signer_index</samp> from the roster in the current GroupState object (before the update).</li>
+<li>Use that public key to verify the <samp>signature</samp> field in the Handshake message, with the updated GroupState object as input.</li>
+<li>If the signature fails to verify, discard the updated GroupState object and consider the Handshake message invalid.</li>
+<li>If the signature verifies successfully, consider the updated GroupState object as the current state of the group.</li>
+</ol>
+<p id="rfc.section.7.p.7">[[ OPEN ISSUE: The Add and Remove operations create a &#8220;double-join&#8221; situation, where a participants leaf key is also known to another participant.  When a participant A is double-joined to another B, deleting A will not remove them from the conversation, since they will still hold the leaf key for B.  These situations are resolved by updates, but since operations are asynchronous and participants may be offline for a long time, the group will need to be able to maintain security in the presence of double-joins. ]]</p>
+<p id="rfc.section.7.p.8">[[ OPEN ISSUE: It is not possible for the recipient of a handshake message to verify that ratchet tree information in the message is accurate, because each node can only compute the secret and private key for nodes in its direct path.  This creates the possibility that a malicious participant could cause a denial of service by sending a handshake message with invalid values for public keys in the ratchet tree. ]]</p>
+<h1 id="rfc.section.7.1">
+<a href="#rfc.section.7.1">7.1.</a> <a href="#init" id="init">Init</a>
+</h1>
+<p id="rfc.section.7.1.p.1">[[ OPEN ISSUE: Direct initialization is currently undefined.  A participant can create a group by initializing its own state to reflect a group including only itself, then adding the initial participants.  This has computation and communication complexity O(N log N) instead of the O(N) complexity of direct initialization. ]]</p>
+<h1 id="rfc.section.7.2">
+<a href="#rfc.section.7.2">7.2.</a> <a href="#add" id="add">Add</a>
+</h1>
+<p id="rfc.section.7.2.p.1">In order to add a new member to the group, an existing member of the group must take two actions:</p>
+<p></p>
+
+<ol>
+<li>Send a Welcome message to the new member</li>
+<li>Send an Add message to the group (including the new member)</li>
+</ol>
+<p id="rfc.section.7.2.p.3">The Welcome message contains the information that the new member needs to initialize a GroupState object that can be updated to the current state using the Add message:</p>
+<pre>
+struct {
+  opaque group_id&lt;0..255&gt;;
+  uint32 epoch;
+  Credential roster&lt;1..2^32-1&gt;;
+  PublicKey tree&lt;1..2^32-1&gt;;
+  GroupOperation transcript&lt;0..2^32-1&gt;;
+  opaque init_secret&lt;0..255&gt;;
+  opaque leaf_secret&lt;0..255&gt;;
+} Welcome;
+</pre>
+<p id="rfc.section.7.2.p.4">Since the new member is expected to process the Add message for itself, the Welcome message should reflect the state of the group before the new user is added.  The sender of the Welcome message can simply copy all fields except the <samp>leaf_secret</samp> from its GroupState object.</p>
+<p id="rfc.section.7.2.p.5">[[ OPEN ISSUE: The Welcome message needs to be sent encrypted for the new member.  This should be done using the public key in the UserInitKey, either with ECIES or X3DH. ]]</p>
+<p id="rfc.section.7.2.p.6">[[ OPEN ISSUE: The Welcome message needs to be synchronized in the same way as the Add.  That is, the Welcome should be sent only if the Add succeeds, and is not in conflict with another, simultaneous Add. ]]</p>
+<p id="rfc.section.7.2.p.7">An Add message provides existing group members with the information they need to update their GroupState with information about the new member:</p>
+<pre>
+struct {
+    DirectPath path&lt;1..2^16-1&gt;;
+    UserInitKey init_key;
+} Add;
+</pre>
+<p id="rfc.section.7.2.p.8">A group member generates this message using the following steps:</p>
+<p></p>
+
+<ul>
+<li>Requesting from the directory a UserInitKey for the user to be added</li>
+<li>Generate a fresh leaf secret and derive a leaf key pair</li>
+<li>Use the ratchet tree and the new leaf secret to compute the direct path between the new leaf and the new root</li>
+</ul>
+<p id="rfc.section.7.2.p.10">The generated leaf secret is placed in the <samp>leaf_secret</samp> field of the Welcome message.  The direct path and the UserInitKey are placed their respective fields in the Add message.</p>
+<p id="rfc.section.7.2.p.11">The new participant processes Welcome and Add messages together as follows:</p>
+<p></p>
+
+<ul>
+<li>Prepare a new GroupState object based on the Welcome message</li>
+<li>Process the Add message as an existing participant would</li>
+</ul>
+<p id="rfc.section.7.2.p.13">An existing participant receiving a Add message first verifies the signature on the message,  then updates its state as follows:</p>
+<p></p>
+
+<ul>
+<li>Increment the size of the group</li>
+<li>Verify the signature on the included UserInitKey; if the signature verification fails, abort</li>
+<li>Append an entry to the roster containing the credential in the included UserInitKey</li>
+<li>Update the ratchet tree with the included direct path</li>
+</ul>
+<p id="rfc.section.7.2.p.15">The update secret resulting from this change is the secret for the root node of the ratchet tree.</p>
+<h1 id="rfc.section.7.3">
+<a href="#rfc.section.7.3">7.3.</a> <a href="#update" id="update">Update</a>
+</h1>
+<p id="rfc.section.7.3.p.1">An Update message is sent by a group participant to update its leaf key pair.  This operation provides post-compromise security with regard to the participant&#8217;s prior leaf private key.</p>
+<pre>
+struct {
+    DirectPath path;
+} Update;
+</pre>
+<p id="rfc.section.7.3.p.2">The sender of an Update message creates it in the following way:</p>
+<p></p>
+
+<ul>
+<li>Generate a fresh leaf key pair</li>
+<li>Compute its direct path in the current ratchet tree</li>
+</ul>
+<p id="rfc.section.7.3.p.4">An existing participant receiving a Update message first verifies the signature on the message, then updates its state as follows:</p>
+<p></p>
+
+<ul><li>Update the cached ratchet tree by replacing nodes in the direct path from the updated leaf using the information contained in the Update message</li></ul>
+<p id="rfc.section.7.3.p.6">The update secret resulting from this change is the secret for the root node of the ratchet tree.</p>
+<h1 id="rfc.section.7.4">
+<a href="#rfc.section.7.4">7.4.</a> <a href="#remove" id="remove">Remove</a>
+</h1>
+<p id="rfc.section.7.4.p.1">A Remove message is sent by a group member to remove one or more participants from the group.</p>
+<pre>
+struct {
+    uint32 removed;
+    DirectPath path;
+} Remove;
+</pre>
+<p id="rfc.section.7.4.p.2">The sender of a Remove message generates it as as follows:</p>
+<p></p>
+
+<ul>
+<li>Generate a fresh leaf key pair</li>
+<li>Compute its direct path in the current ratchet tree, starting from the removed leaf</li>
+</ul>
+<p id="rfc.section.7.4.p.4">An existing participant receiving a Remove message first verifies the signature on the message, then verifies its identity proof against the identity tree held by the participant.  The participant then updates its state as follows:</p>
+<p></p>
+
+<ul>
+<li>Update the roster by replacing the credential in the removed slot with the credential from the sender&#8217;s slot (i.e., the sender of the Remove takes over the removed slot)</li>
+<li>Update the cached ratchet tree by replacing nodes in the direct path from the removed leaf using the information in the Remove message</li>
+</ul>
+<p id="rfc.section.7.4.p.6">The update secret resulting from this change is the secret for the root node of the ratchet tree after both updates.</p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#sequencing" id="sequencing">Sequencing of State Changes</a>
+</h1>
+<p id="rfc.section.8.p.1">[[ OPEN ISSUE: This section has an initial set of considerations regarding sequencing.  It would be good to have some more detailed discussion, and hopefully have a mechanism to deal with this issue. ]]</p>
+<p id="rfc.section.8.p.2">Each handshake message is premised on a given starting state, indicated in its <samp>prior_epoch</samp> field.  If the changes implied by a handshake messages are made starting from a different state, the results will be incorrect.</p>
+<p id="rfc.section.8.p.3">This need for sequencing is not a problem as long as each time a group member sends a handshake message, it is based on the most current state of the group.  In practice, however, there is a risk that two members will generate handshake messages simultaneously, based on the same state.</p>
+<p id="rfc.section.8.p.4">When this happens, there is a need for the members of the group to deconflict the simultaneous handshake messages.  There are two general approaches:</p>
+<p></p>
+
+<ul>
+<li>Have the delivery service enforce a total order</li>
+<li>Have a signal in the message that clients can use to break ties</li>
+</ul>
+<p id="rfc.section.8.p.6">As long as handshake messages cannot be merged, there is a risk of starvation.  In a sufficiently busy group, a given member may never be able to send a handshake message, because he always loses to other members.  The degree to which this is a practical problem will depend on the dynamics of the application.</p>
+<p id="rfc.section.8.p.7">It might be possible, because of the non-contributivity of intermediate nodes, that update messages could be applied one after the other without the Delivery Service having to reject any handshake message, which would make MLS more resilient regarding the concurrency of handshake messages.  The Messaging system can decide to choose the order for applying the state changes. Note that there are certain cases (if no total ordering is applied by the Delivery Service) where the ordering is important for security, ie. all updates must be executed before removes.</p>
+<p id="rfc.section.8.p.8">Regardless of how messages are kept in sequence, implementations MUST only update their cryptographic state when valid handshake messages are received.  Generation of handshake messages MUST be stateless, since the endpoint cannot know at that time whether the change implied by the handshake message will succeed or not.</p>
+<h1 id="rfc.section.8.1">
+<a href="#rfc.section.8.1">8.1.</a> <a href="#server-enforced-ordering" id="server-enforced-ordering">Server-Enforced Ordering</a>
+</h1>
+<p id="rfc.section.8.1.p.1">With this approach, the delivery service ensures that incoming messages are added to an ordered queue and outgoing messages are dispatched in the same order. The server is trusted to resolve conflicts during race-conditions (when two members send a message at the same time), as the server doesn&#8217;t have any additional knowledge thanks to the confidentiality of the messages.</p>
+<p id="rfc.section.8.1.p.2">Messages should have a counter field sent in clear-text that can be checked by the server and used for tie-breaking. The counter starts at 0 and is incremented for every new incoming message. If two group members send a message with the same counter, the first message to arrive will be accepted by the server and the second one will be rejected. The rejected message needs to be sent again with the correct counter number.</p>
+<p id="rfc.section.8.1.p.3">To prevent counter manipulation by the server, the counter&#8217;s integrity can be ensured by including the counter in a signed message envelope.</p>
+<p id="rfc.section.8.1.p.4">This applies to all messages, not only state changing messages.</p>
+<h1 id="rfc.section.8.2">
+<a href="#rfc.section.8.2">8.2.</a> <a href="#client-enforced-ordering" id="client-enforced-ordering">Client-Enforced Ordering</a>
+</h1>
+<p id="rfc.section.8.2.p.1">Order enforcement can be implemented on the client as well, one way to achieve it is to use a two step update protocol: the first client sends a proposal to update and the proposal is accepted when it gets 50%+ approval from the rest of the group, then it sends the approved update. Clients which didn&#8217;t get their proposal accepted, will wait for the winner to send their update before retrying new proposals.</p>
+<p id="rfc.section.8.2.p.2">While this seems safer as it doesn&#8217;t rely on the server, it is more complex and harder to implement. It also could cause starvation for some clients if they keep failing to get their proposal accepted.</p>
+<h1 id="rfc.section.8.3">
+<a href="#rfc.section.8.3">8.3.</a> <a href="#merging-updates" id="merging-updates">Merging Updates</a>
+</h1>
+<p id="rfc.section.8.3.p.1">It is possible in principle to partly address the problem of concurrent changes by having the recipients of the changes merge them, rather than having the senders retry.  Because the value of intermediate node is determined by its last updated child, updates can be merged by recipients as long as the recipients agree on an order &#8211; the only question is which node was last updated.</p>
+<p id="rfc.section.8.3.p.2">Recall that the processing of an update proceeds in two steps:</p>
+<p></p>
+
+<ol>
+<li>Compute updated secret values by hashing up the tree</li>
+<li>Update the tree with the new secret and public values</li>
+</ol>
+<p id="rfc.section.8.3.p.4">To merge an ordered list of updates, a recipient simply performs these updates in the specified order.</p>
+<p id="rfc.section.8.3.p.5">For example, suppose we have a tree in the following configuration:</p>
+<pre>
+      H(H(D))
+     /       \
+  H(B)      H(D)
+  /  \      /  \
+ A    B    C    D
+</pre>
+<p id="rfc.section.8.3.p.6">Now suppose B and C simultaneously decide to update to X and Y, respectively.  They will send out updates of the following form:</p>
+<pre>
+  Update from B      Update from C
+  =============      =============
+      H(H(X))            H(H(Y))
+     /                         \
+  H(X)                         H(Y)
+     \                         /
+      X                       Y
+</pre>
+<p id="rfc.section.8.3.p.7">Assuming that the ordering agreed by the group says that B&#8217;s update should be processed before C&#8217;s, the other participants in the group will overwrite the root value for B with the root value from C, and all arrive at the following state:</p>
+<pre>
+      H(H(Y))
+     /       \
+  H(X)      H(Y)
+  /  \      /  \
+ A    X    Y    D
+</pre>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> <a href="#message-protection" id="message-protection">Message Protection</a>
+</h1>
+<p id="rfc.section.9.p.1">The primary purpose of the handshake protocol is to provide an authenticated group key exchange to participants. In order to protect Application messages sent among those participants, the Application secret provided by the Handshake key schedule is used to derive encryption keys for the Message Protection Layer.</p>
+<p id="rfc.section.9.p.2">Application messages MUST be protected with the Authenticated-Encryption with Associated-Data (AEAD) encryption scheme associated with the MLS ciphersuite.  Note that &#8220;Authenticated&#8221; in this context does not mean messages are known to be sent by a specific participant but only from a legitimate member of the group.  To authenticate a message from a particular member, signatures are required.  Handshake messages MUST use asymmetric signatures to strongly authenticate the sender of a message.</p>
+<p id="rfc.section.9.p.3">Each participant maintains their own chain of Application secrets, where the first one is derived based on a secret chained from the Epoch secret.  As shown in <a href="#key-schedule" class="xref">Section 5.7</a>, the initial Application secret is bound to the identity of each participant to avoid collisions and allow support for decryption of reordered messages.</p>
+<p id="rfc.section.9.p.4">Subsequent Application secrets MUST be rotated for each message sent in order to provide stronger cryptographic security guarantees. The Application Key Schedule use this rotation to generate fresh AEAD encryption keys and nonces used to encrypt and decrypt future Application messages.  In all cases, a participant MUST NOT encrypt more than expected by the security bounds of the AEAD scheme used.</p>
+<p id="rfc.section.9.p.5">Note that each change to the Group through a Handshake message will cause a change of the Group Secret. Hence this change MUST be applied before encrypting any new Application message. This is required for confidentiality reasons in order for Members to avoid receiving messages from the group after leaving, being added to, or excluded from the Group.</p>
+<h1 id="rfc.section.9.1">
+<a href="#rfc.section.9.1">9.1.</a> <a href="#key-schedule-application" id="key-schedule-application">Application Key Schedule</a>
+</h1>
+<p id="rfc.section.9.1.p.1">After computing the initial Application Secret shared by the group, each Participant creates an initial Participant Application Secret to be used for its own sending chain:</p>
+<pre>
+           application_secret
+                     |
+                     V
+           Derive-Secret(., "app sender", [sender])
+                     |
+                     V
+           application_secret_[sender]_[0]
+</pre>
+<p id="rfc.section.9.1.p.2">Note that [sender] represent the uint32 value encoding the index of the participant in the ratchet tree.</p>
+<p id="rfc.section.9.1.p.3">Updating the Application secret and deriving the associated AEAD key and nonce can be summarized as the following Application key schedule where each participant&#8217;s Application secret chain looks as follows after the initial derivation:</p>
+<pre>
+           application_secret_[sender]_[N-1]
+                     |
+                     +--&gt; HKDF-Expand-Label(.,"nonce", "", nonce_length)
+                     |    = write_nonce_[sender]_[N-1]
+                     |
+                     +--&gt; HKDF-Expand-Label(.,"key", "", key_length)
+                     |    = write_key_[sender]_[N-1]
+                     V
+           Derive-Secret(., "app upd","")
+                     |
+                     V
+           application_secret_[sender]_[N]
+</pre>
+<p id="rfc.section.9.1.p.4">The Application context provided together with the previous Application secret is used to bind the Application messages with the next key and add some freshness.</p>
+<p id="rfc.section.9.1.p.5">[[OPEN ISSUE: The HKDF context field is left empty for now.  A proper security study is needed to make sure that we do not need more information in the context to achieve the security goals.]]</p>
+<p id="rfc.section.9.1.p.6">[[ OPEN ISSUE: At the moment there is no contributivity of Application secrets chained from the initial one to the next generation of Epoch secret. While this seems safe because cryptographic operations using the application secrets can&#8217;t affect the group init_secret, it remains to be proven correct. ]]</p>
+<h1 id="rfc.section.9.1.1">
+<a href="#rfc.section.9.1.1">9.1.1.</a> <a href="#updating-the-application-secret" id="updating-the-application-secret">Updating the Application Secret</a>
+</h1>
+<p id="rfc.section.9.1.1.p.1">The following rules apply to an Application Secret:</p>
+<p></p>
+
+<ul>
+<li>Senders MUST only use the Application Secret once and monotonically increment the generation of their secret. This is important to provide Forward Secrecy at the level of Application messages. An attacker getting hold of a Participant&#8217;s Application Secret at generation [N+1] will not be able to derive the Participant&#8217;s Application Secret [N] nor the associated AEAD key and nonce.</li>
+<li>Receivers MUST delete an Application Secret once it has been used to derive the corresponding AEAD key and nonce as well as the next Application Secret. Receivers MAY keep the AEAD key and nonce around for some reasonable period.</li>
+<li>Receivers MUST delete AEAD keys and nonces once they have been used to successfully decrypt a message.</li>
+</ul>
+<h1 id="rfc.section.9.1.2">
+<a href="#rfc.section.9.1.2">9.1.2.</a> <a href="#application-aead-key-calculation" id="application-aead-key-calculation">Application AEAD Key Calculation</a>
+</h1>
+<p id="rfc.section.9.1.2.p.1">The Application AEAD keying material is generated from the following input values:</p>
+<p></p>
+
+<ul>
+<li>The Application Secret value;</li>
+<li>A purpose value indicating the specific value being generated;</li>
+<li>The length of the key being generated.</li>
+</ul>
+<p id="rfc.section.9.1.2.p.3">Note, that because the identity of the participant using the keys to send data is included in the initial Application Secret, all successive updates to the Application secret will implicitly inherit this ownership.</p>
+<p id="rfc.section.9.1.2.p.4">All the traffic keying material is recomputed whenever the underlying Application Secret changes.</p>
+<h1 id="rfc.section.9.2">
+<a href="#rfc.section.9.2">9.2.</a> <a href="#message-encryption-and-decryption" id="message-encryption-and-decryption">Message Encryption and Decryption</a>
+</h1>
+<p id="rfc.section.9.2.p.1">The Group participants MUST use the AEAD algorithm associated with the negotiated MLS ciphersuite to AEAD encrypt and decrypt their Application messages and sign them as follows:</p>
+<pre>
+    struct {
+        opaque content&lt;0..2^32-1&gt;;
+        opaque signature&lt;0..2^16-1&gt;;
+        uint8 zeros[length_of_padding];
+    } ApplicationPlaintext;
+
+    struct {
+        uint8  group[32];
+        uint32 epoch;
+        uint32 generation;
+        uint32 sender;
+        opaque encrypted_content&lt;0..2^32-1&gt;;
+    } Application;
+</pre>
+<p id="rfc.section.9.2.p.2">The Group identifier and epoch allow a device to know which Group secrets should be used and from which Epoch secret to start computing other secrets and keys. The participant identifier is used to derive the participant Application secret chain from the initial shared Application secret.  The application generation field is used to determine which Application secret should be used from the chain to compute the correct AEAD keys before performing decryption.</p>
+<p id="rfc.section.9.2.p.3">The signature field allows strong authentication of messages:</p>
+<pre>
+    struct {
+        uint8  group[32];
+        uint32 epoch;
+        uint32 generation;
+        uint32 sender;
+        opaque content&lt;0..2^32-1&gt;;
+    } MLSSignatureContent;
+</pre>
+<p id="rfc.section.9.2.p.4">The signature used in the MLSPlaintext is computed over the MLSSignatureContent which covers the metadata information about the current state of the group (group identifier, epoch, generation and sender&#8217;s Leaf index) to prevent Group participants from impersonating other participants. It is also necessary in order to prevent cross-group attacks.</p>
+<p id="rfc.section.9.2.p.5">[[ TODO: A preliminary formal security analysis has yet to be performed on this authentication scheme.]]</p>
+<p id="rfc.section.9.2.p.6">[[ OPEN ISSUE: Currently, the group identifier, epoch and generation are contained as meta-data of the Signature. A different solution could be to include the GroupState instead, if more information is required to achieve the security goals regarding cross-group attacks. ]]</p>
+<p id="rfc.section.9.2.p.7">[[ OPEN ISSUE: Should the padding be required for Handshake messages ? Can an adversary get more than the position of a participant in the tree without padding ? Should the base ciphertext block length be negotiated or is is reasonable to allow to leak a range for the length of the plaintext by allowing to send a variable number of ciphertext blocks ? ]]</p>
+<p id="rfc.section.9.2.p.8">Application messages SHOULD be padded to provide some resistance against traffic analysis techniques over encrypted traffic.  <a href="#CLINIC" class="xref">[CLINIC]</a> <a href="#HCJ16" class="xref">[HCJ16]</a> While MLS might deliver the same payload less frequently across a lot of ciphertexts than traditional web servers, it might still provide the attacker enough information to mount an attack. If Alice asks Bob: &#8220;When are we going to the movie ?&#8221; the answer &#8220;Wednesday&#8221; might be leaked to an adversary by the ciphertext length. An attacker expecting Alice to answer Bob with a day of the week might find out the plaintext by correlation between the question and the length.</p>
+<p id="rfc.section.9.2.p.9">Similarly to TLS 1.3, if padding is used, the MLS messages MUST be padded with zero-valued bytes before AEAD encryption. Upon AEAD decryption, the length field of the plaintext is used to compute the number of bytes to be removed from the plaintext to get the correct data.  As the padding mechanism is used to improve protection against traffic analysis, removal of the padding SHOULD be implemented in a &#8220;constant-time&#8221; manner at the MLS layer and above layers to prevent timing side-channels that would provide attackers with information on the size of the plaintext.</p>
+<h1 id="rfc.section.9.2.1">
+<a href="#rfc.section.9.2.1">9.2.1.</a> <a href="#delayed-and-reordered-application-messages" id="delayed-and-reordered-application-messages">Delayed and Reordered Application messages</a>
+</h1>
+<p id="rfc.section.9.2.1.p.1">Since each Application message contains the Group identifier, the epoch and a message counter, a participant can receive messages out of order.  If they are able to retrieve or recompute the correct AEAD decryption key from currently stored cryptographic material participants can decrypt these messages.</p>
+<p id="rfc.section.9.2.1.p.2">For usability, MLS Participants might be required to keep the AEAD key and nonce for a certain amount of time to retain the ability to decrypt delayed or out of order messages, possibly still in transit while a decryption is being done.</p>
+<p id="rfc.section.9.2.1.p.3">[[TODO: Describe here or in the Architecture spec the details. Depending on which Secret or key is kept alive, the security guarantees will vary.]]</p>
+<h1 id="rfc.section.10">
+<a href="#rfc.section.10">10.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
+<p id="rfc.section.10.p.1">The security goals of MLS are described in [I-D.ietf-mls-architecture]. We describe here how the protocol achieves its goals at a high level, though a complete security analysis is outside of the scope of this document.</p>
+<h1 id="rfc.section.10.1">
+<a href="#rfc.section.10.1">10.1.</a> <a href="#confidentiality-of-the-group-secrets" id="confidentiality-of-the-group-secrets">Confidentiality of the Group Secrets</a>
+</h1>
+<p id="rfc.section.10.1.p.1">Group secrets are derived from (i) previous group secrets, and (ii) the root key of a ratcheting tree. Only group members know their leaf private key in the group, therefore, the root key of the group&#8217;s ratcheting tree is secret and thus so are all values derived from it.</p>
+<p id="rfc.section.10.1.p.2">Initial leaf keys are known only by their owner and the group creator, because they are derived from an authenticated key exchange protocol. Subsequent leaf keys are known only by their owner. [[TODO: or by someone who replaced them.]]</p>
+<p id="rfc.section.10.1.p.3">Note that the long-term identity keys used by the protocol MUST be distributed by an &#8220;honest&#8221; authentication service for parties to authenticate their legitimate peers.</p>
+<h1 id="rfc.section.10.2">
+<a href="#rfc.section.10.2">10.2.</a> <a href="#authentication" id="authentication">Authentication</a>
+</h1>
+<p id="rfc.section.10.2.p.1">There are two forms of authentication we consider. The first form considers authentication with respect to the group. That is, the group members can verify that a message originated from one of the members of the group. This is implicitly guaranteed by the secrecy of the shared key derived from the ratcheting trees: if all members of the group are honest, then the shared group key is only known to the group members. By using AEAD or appropriate MAC with this shared key, we can guarantee that a participant in the group (who knows the shared secret key) has sent a message.</p>
+<p id="rfc.section.10.2.p.2">The second form considers authentication with respect to the sender, meaning the group members can verify that a message originated from a particular member of the group. This property is provided by digital signatures on the messages under identity keys.</p>
+<p id="rfc.section.10.2.p.3">[[ OPEN ISSUE: Signatures under the identity keys, while simple, have the side-effect of preclude deniability. We may wish to allow other options, such as (ii) a key chained off of the identity key, or (iii) some other key obtained through a different manner, such as a pairwise channel that provides deniability for the message contents.]]</p>
+<h1 id="rfc.section.10.3">
+<a href="#rfc.section.10.3">10.3.</a> <a href="#forward-and-post-compromise-security" id="forward-and-post-compromise-security">Forward and post-compromise security</a>
+</h1>
+<p id="rfc.section.10.3.p.1">Message encryption keys are derived via a hash ratchet, which provides a form of forward secrecy: learning a message key does not reveal previous message or root keys. Post-compromise security is provided by Update operations, in which a new root key is generated from the latest ratcheting tree. If the adversary cannot derive the updated root key after an Update operation, it cannot compute any derived secrets.</p>
+<h1 id="rfc.section.10.4">
+<a href="#rfc.section.10.4">10.4.</a> <a href="#init-key-reuse" id="init-key-reuse">Init Key Reuse</a>
+</h1>
+<p id="rfc.section.10.4.p.1">Initialization keys are intended to be used only once and then deleted. Reuse of init keys is not believed to be inherently insecure <a href="#dhreuse" class="xref">[dhreuse]</a>, although it can complicate protocol analyses.</p>
+<h1 id="rfc.section.11">
+<a href="#rfc.section.11">11.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.11.p.1">TODO: Registries for protocol parameters, e.g., ciphersuites</p>
+<h1 id="rfc.section.12">
+<a href="#rfc.section.12">12.</a> <a href="#contributors" id="contributors">Contributors</a>
+</h1>
+<p></p>
+
+<ul>
+<li>Benjamin Beurdouche <br> INRIA <br> benjamin.beurdouche@ens.fr</li>
+<li>Karthikeyan Bhargavan <br> INRIA <br> karthikeyan.bhargavan@inria.fr</li>
+<li>Cas Cremers <br> University of Oxford <br> cas.cremers@cs.ox.ac.uk</li>
+<li>Alan Duric <br> Wire <br> alan@wire.com</li>
+<li>Srinivas Inguva <br> Twitter <br> singuva@twitter.com</li>
+<li>Albert Kwon <br> MIT <br> kwonal@mit.edu</li>
+<li>Eric Rescorla <br> Mozilla <br> ekr@rtfm.com</li>
+<li>Thyla van der Merwe <br> Royal Holloway, University of London <br> thyla.van.der@merwe.tech</li>
+</ul>
+<h1 id="rfc.references">
+<a href="#rfc.references">13.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">13.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="IEEE1363">[IEEE1363]</b></td>
+<td class="top">"<a>IEEE Standard Specifications for Password-Based Public-Key Cryptographic Techniques</a>", IEEE standard, DOI 10.1109/ieeestd.2009.4773330, n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5116">[RFC5116]</b></td>
+<td class="top">
+<a>McGrew, D.</a>, "<a href="https://tools.ietf.org/html/rfc5116">An Interface and Algorithms for Authenticated Encryption</a>", RFC 5116, DOI 10.17487/RFC5116, January 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5869">[RFC5869]</b></td>
+<td class="top">
+<a>Krawczyk, H.</a> and <a>P. Eronen</a>, "<a href="https://tools.ietf.org/html/rfc5869">HMAC-based Extract-and-Expand Key Derivation Function (HKDF)</a>", RFC 5869, DOI 10.17487/RFC5869, May 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7748">[RFC7748]</b></td>
+<td class="top">
+<a>Langley, A.</a>, <a>Hamburg, M.</a> and <a>S. Turner</a>, "<a href="https://tools.ietf.org/html/rfc7748">Elliptic Curves for Security</a>", RFC 7748, DOI 10.17487/RFC7748, January 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8446">[RFC8446]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc8446">The Transport Layer Security (TLS) Protocol Version 1.3</a>", RFC 8446, DOI 10.17487/RFC8446, August 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="X962">[X962]</b></td>
+<td class="top">
+<a>ANSI</a>, "<a>Public Key Cryptography For The Financial Services Industry: The Elliptic Curve Digital Signature Algorithm (ECDSA)</a>", ANSI X9.62, 1998.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">13.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="art">[art]</b></td>
+<td class="top">
+<a>Cohn-Gordon, K.</a>, <a>Cremers, C.</a>, <a>Garratt, L.</a>, <a>Millican, J.</a> and <a>K. Milner</a>, "<a href="https://eprint.iacr.org/2017/666.pdf">On Ends-to-Ends Encryption: Asynchronous Group Messaging with Strong Security Guarantees</a>", January 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="CLINIC">[CLINIC]</b></td>
+<td class="top">
+<a>Miller, B.</a>, <a>Huang, L.</a>, <a>Joseph, A.</a> and <a>J. Tygar</a>, "<a>I Know Why You Went to the Clinic: Risks and Realization of HTTPS Traffic Analysis</a>", Privacy Enhancing Technologies pp. 143-163, DOI 10.1007/978-3-319-08506-7_8, 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="dhreuse">[dhreuse]</b></td>
+<td class="top">
+<a>Menezes, A.</a> and <a>B. Ustaoglu</a>, "<a>On reusing ephemeral keys in Diffie-Hellman key agreement protocols</a>", International Journal of Applied Cryptography Vol. 2, pp. 154, DOI 10.1504/ijact.2010.038308, 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="doubleratchet">[doubleratchet]</b></td>
+<td class="top">
+<a>Cohn-Gordon, K.</a>, <a>Cremers, C.</a>, <a>Dowling, B.</a>, <a>Garratt, L.</a> and <a>D. Stebila</a>, "<a>A Formal Security Analysis of the Signal Messaging Protocol</a>", 2017 IEEE European Symposium on Security and Privacy (EuroS&amp;P), DOI 10.1109/eurosp.2017.27, April 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="HCJ16">[HCJ16]</b></td>
+<td class="top">
+<a>Hus&#225;k, M.</a>, <a>&#268;erm&#225;k, M.</a>, <a>Jirs&#237;k, T.</a> and <a>P. &#268;eleda</a>, "<a>HTTPS traffic analysis and client identification using passive SSL/TLS fingerprinting</a>", EURASIP Journal on Information Security Vol. 2016, DOI 10.1186/s13635-016-0030-7, February 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-trans-rfc6962-bis">[I-D.ietf-trans-rfc6962-bis]</b></td>
+<td class="top">
+<a>Laurie, B.</a>, <a>Langley, A.</a>, <a>Kasper, E.</a>, <a>Messeri, E.</a> and <a>R. Stradling</a>, "<a href="https://tools.ietf.org/html/draft-ietf-trans-rfc6962-bis-28">Certificate Transparency Version 2.0</a>", Internet-Draft draft-ietf-trans-rfc6962-bis-28, March 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="keyagreement">[keyagreement]</b></td>
+<td class="top">
+<a>Barker, E.</a>, <a>Chen, L.</a>, <a>Roginsky, A.</a> and <a>M. Smid</a>, "<a>Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography</a>", National Institute of Standards and Technology report, DOI 10.6028/nist.sp.800-56ar2, May 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="signal">[signal]</b></td>
+<td class="top">
+<a>Perrin(ed), T.</a> and <a>M. Marlinspike</a>, "<a href="https://www.signal.org/docs/specifications/doubleratchet/">The Double Ratchet Algorithm</a>", n.d..</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#tree-math" id="tree-math">Tree Math</a>
+</h1>
+<p id="rfc.section.A.p.1">One benefit of using left-balanced trees is that they admit a simple flat array representation.  In this representation, leaf nodes are even-numbered nodes, with the n-th leaf at 2*n.  Intermediate nodes are held in odd-numbered nodes.  For example, a 11-element tree has the following structure:</p>
+<pre>
+                                             X
+                     X
+         X                       X                       X
+   X           X           X           X           X
+X     X     X     X     X     X     X     X     X     X     X
+0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+</pre>
+<p id="rfc.section.A.p.2">This allows us to compute relationships between tree nodes simply by manipulating indices, rather than having to maintain complicated structures in memory, even for partial trees. The basic rule is that the high-order bits of parent and child nodes have the following relation (where <samp>x</samp> is an arbitrary bit string):</p>
+<pre>
+parent=01x =&gt; left=00x, right=10x
+</pre>
+<p id="rfc.section.A.p.3">The following python code demonstrates the tree computations necessary for MLS.  Test vectors can be derived from the diagram above.</p>
+<pre>
+# The largest power of 2 less than n.  Equivalent to:
+#   int(math.floor(math.log(x, 2)))
+def log2(x):
+    if x == 0:
+        return 0
+
+    k = 0
+    while (x &gt;&gt; k) &gt; 0:
+        k += 1
+    return k-1
+
+# The level of a node in the tree.  Leaves are level 0, their
+# parents are level 1, etc.  If a node's children are at different
+# level, then its level is the max level of its children plus one.
+def level(x):
+    if x &amp; 0x01 == 0:
+        return 0
+
+    k = 0
+    while ((x &gt;&gt; k) &amp; 0x01) == 1:
+        k += 1
+    return k
+
+# The number of nodes needed to represent a tree with n leaves
+def node_width(n):
+    return 2*(n - 1) + 1
+
+# The index of the root node of a tree with n leaves
+def root(n):
+    w = node_width(n)
+    return (1 &lt;&lt; log2(w)) - 1
+
+# The left child of an intermediate node.  Note that because the
+# tree is left-balanced, there is no dependency on the size of the
+# tree.  The child of a leaf node is itself.
+def left(x):
+    k = level(x)
+    if k == 0:
+        return x
+
+    return x ^ (0x01 &lt;&lt; (k - 1))
+
+# The right child of an intermediate node.  Depends on the size of
+# the tree because the straightforward calculation can take you
+# beyond the edge of the tree.  The child of a leaf node is itself.
+def right(x, n):
+    k = level(x)
+    if k == 0:
+        return x
+
+    r = x ^ (0x03 &lt;&lt; (k - 1))
+    while r &gt;= node_width(n):
+        r = left(r)
+    return r
+
+# The immediate parent of a node.  May be beyond the right edge of
+# the tree.
+def parent_step(x):
+    k = level(x)
+    b = (x &gt;&gt; (k + 1)) &amp; 0x01
+    return (x | (1 &lt;&lt; k)) ^ (b &lt;&lt; (k + 1))
+
+# The parent of a node.  As with the right child calculation, have
+# to walk back until the parent is within the range of the tree.
+def parent(x, n):
+    if x == root(n):
+        return x
+
+    p = parent_step(x)
+    while p &gt;= node_width(n):
+        p = parent_step(p)
+    return p
+
+# The other child of the node's parent.  Root's sibling is itself.
+def sibling(x, n):
+    p = parent(x, n)
+    if x &lt; p:
+        return right(p, n)
+    elif x &gt; p:
+        return left(p)
+
+    return p
+
+# The direct path from a node to the root, ordered from the root
+# down, not including the root or the terminal node
+def direct_path(x, n):
+    d = []
+    p = parent(x, n)
+    r = root(n)
+    while p != r:
+        d.append(p)
+        p = parent(p, n)
+    return d
+
+# The copath of the node is the siblings of the nodes on its direct
+# path (including the node itself)
+def copath(x, n):
+    d = dirpath(x, n)
+    if x != sibling(x, n):
+        d.append(x)
+
+    return [sibling(y, n) for y in d]
+
+# Frontier is is the list of full subtrees, from left to right.  A
+# balance binary tree with n leaves has a full subtree for every
+# power of two where n has a bit set, with the largest subtrees
+# furthest to the left.  For example, a tree with 11 leaves has full
+# subtrees of size 8, 2, and 1.
+def frontier(n):
+    st = [1 &lt;&lt; k for k in range(log2(n) + 1) if n &amp; (1 &lt;&lt; k) != 0]
+    st = reversed(st)
+
+    base = 0
+    f = []
+    for size in st:
+        f.append(root(size) + base)
+        base += 2*size
+    return f
+
+# Leaves are in even-numbered nodes
+def leaves(n):
+    return [2*i for i in range(n)]
+
+</pre>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Richard Barnes</span> 
+	  <span class="n hidden">
+		<span class="family-name">Barnes</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Cisco</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:rlb@ipv.sx">rlb@ipv.sx</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Jon Millican</span> 
+	  <span class="n hidden">
+		<span class="family-name">Millican</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Facebook</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:jmillican@fb.com">jmillican@fb.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Emad Omara</span> 
+	  <span class="n hidden">
+		<span class="family-name">Omara</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Google</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:emadomara@google.com">emadomara@google.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Katriel Cohn-Gordon</span> 
+	  <span class="n hidden">
+		<span class="family-name">Cohn-Gordon</span>
+	  </span>
+	</span>
+	<span class="org vcardline">University of Oxford</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:me@katriel.co.uk">me@katriel.co.uk</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Raphael Robert</span> 
+	  <span class="n hidden">
+		<span class="family-name">Robert</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Wire</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:raphael@wire.com">raphael@wire.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
